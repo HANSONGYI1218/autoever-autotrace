@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-todo-list",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,7 +9,6 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "mysql2": "^3.23.4",
     "next": "16.3.1",
     "react": "19.2.8",
     "react-dom": "19.2.8"
