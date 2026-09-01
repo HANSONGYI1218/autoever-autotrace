@@ -1,12 +1,5 @@
-import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
-
-// GET - 전체 조회
-export async function GET() {
-  const [rows] = await db.query("SELECT * FROM todos");
-
-  return NextResponse.json(rows);
-}
+import { db } from "../../../lib/db";
 
 // POST - Todo 추가
 export async function POST(request: NextRequest) {

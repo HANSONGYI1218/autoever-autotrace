@@ -14,7 +14,7 @@ export default function TodoList() {
 
   // READ
   const getTodos = async () => {
-    const response = await fetch("/api/todos");
+    const response = await fetch("/api/query/todos");
     const data = await response.json();
 
     // 현재 API는 실제 데이터를 반환하지 않기 때문에
@@ -26,7 +26,7 @@ export default function TodoList() {
   const addTodo = async () => {
     if (!title.trim()) return;
 
-    const response = await fetch("/api/todos", {
+    const response = await fetch("/api/command/todos", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export default function TodoList() {
 
     if (!newTitle?.trim()) return;
 
-    const response = await fetch(`/api/todos/${id}`, {
+    const response = await fetch(`/api/command/todos/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -70,7 +70,7 @@ export default function TodoList() {
 
   // DELETE
   const deleteTodo = async (id: number) => {
-    const response = await fetch(`/api/todos/${id}`, {
+    const response = await fetch(`/api/command/todos/${id}`, {
       method: "DELETE",
     });
 

@@ -1,5 +1,5 @@
-import { db } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
+import { db } from "../../../../lib/db";
 
 // PUT - Todo 수정
 export async function PUT(
