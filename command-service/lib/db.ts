@@ -1,9 +1,11 @@
 import mysql from "mysql2/promise";
 
 export const db = mysql.createPool({
-  host: process.env.DB_HOST || "localhost",
-  port: Number(process.env.DB_PORT || 3306),
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "1234",
-  database: process.env.DB_NAME || "testdb",
+  host: process.env.MARIADB_HOST || "localhost",
+  port: Number(process.env.MARIADB_PORT || 3306),
+  user: process.env.MARIADB_USER || "root",
+  password: process.env.MARIADB_PASSWORD || "",
+  database: process.env.MARIADB_DATABASE || "autotrace",
+  waitForConnections: true,
+  connectionLimit: 10,
 });

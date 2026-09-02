@@ -1,9 +1,9 @@
-import TodoList from "@/components/TodoList";
+import DtcList from "@/components/dtc-list";
 
-export default function Home() {
+export default function DtcPage() {
   return (
-    <main>
-      <TodoList />
+    <main className="mx-auto max-w-7xl p-6">
+      <DtcList />
     </main>
   );
 }
