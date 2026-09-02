@@ -1,12 +1,11 @@
-```yaml
-name: Build Query Service
+name: Build Query
 
 on:
   push:
     branches:
       - main
     paths:
-      - "query-service/**"
+      - "query/**"
 
 jobs:
   docker:
@@ -25,8 +24,7 @@ jobs:
       - name: Build and Push Query
         uses: docker/build-push-action@v7
         with:
-          context: ./query-service
-          file: ./query-service/Dockerfile
+          context: ./query
+          file: ./query/Dockerfile
           push: true
           tags: hansongyi1218/autotrace-query:latest
-```

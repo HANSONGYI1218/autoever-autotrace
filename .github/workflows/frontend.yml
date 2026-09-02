@@ -1,4 +1,3 @@
-```yaml
 name: Build Frontend
 
 on:
@@ -29,4 +28,3 @@ jobs:
           file: ./frontend/Dockerfile
           push: true
           tags: hansongyi1218/autotrace-frontend:latest
-```

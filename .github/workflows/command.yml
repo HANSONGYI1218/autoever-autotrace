@@ -1,4 +1,3 @@
-```yaml
 name: Build Command
 
 on:
@@ -29,4 +28,3 @@ jobs:
           file: ./command/Dockerfile
           push: true
           tags: hansongyi1218/autotrace-command:latest
-```
