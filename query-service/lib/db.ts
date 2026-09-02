@@ -1,9 +1,7 @@
-import mysql from "mysql2/promise";
+import { MongoClient } from "mongodb";
 
-export const db = mysql.createPool({
-  host: process.env.DB_HOST || "localhost",
-  port: Number(process.env.DB_PORT || 3306),
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "1234",
-  database: process.env.DB_NAME || "testdb",
-});
+const uri = process.env.MONGO_URI || "mongodb://localhost:27017";
+
+const client = new MongoClient(uri);
+
+export const db = client.db(process.env.MONGO_DB || "testdb");

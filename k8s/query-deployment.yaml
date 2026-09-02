@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query
+  template:
+    metadata:
+      labels:
+        app: query
+    spec:
+      containers:
+        - name: query
+          image: YOUR_DOCKERHUB_ID/todo-query:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MONGO_HOST
+              value: mongodb-service
+
+            - name: MONGO_PORT
+              value: "27017"
+
+            - name: MONGO_DATABASE
+              value: todo
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: query-service
+spec:
+  selector:
+    app: query
+  ports:
+    - port: 3000
+      targetPort: 3000
+  type: ClusterIP
