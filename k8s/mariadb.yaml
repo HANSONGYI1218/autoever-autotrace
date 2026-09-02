@@ -2,15 +2,17 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: mariadb-secret
+  namespace: autotrace
 type: Opaque
 stringData:
-  DB_PASSWORD: "1234"
+  MARIADB_PASSWORD: "1234"
 
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: mariadb-pvc
+  namespace: autotrace
 spec:
   accessModes:
     - ReadWriteOnce
@@ -23,19 +25,24 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mariadb
+  namespace: autotrace
 spec:
   replicas: 1
+
   selector:
     matchLabels:
       app: mariadb
+
   template:
     metadata:
       labels:
         app: mariadb
+
     spec:
       containers:
         - name: mariadb
           image: mariadb:11
+
           ports:
             - containerPort: 3306
 
@@ -44,10 +51,10 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: mariadb-secret
-                  key: DB_PASSWORD
+                  key: MARIADB_PASSWORD
 
             - name: MARIADB_DATABASE
-              value: testdb
+              value: "autotrace"
 
           volumeMounts:
             - name: mariadb-storage
@@ -62,11 +69,15 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mariadb-service
+  name: mariadb
+  namespace: autotrace
 spec:
+  type: ClusterIP
+
   selector:
     app: mariadb
+
   ports:
     - port: 3306
       targetPort: 3306
-  type: ClusterIP
+      protocol: TCP

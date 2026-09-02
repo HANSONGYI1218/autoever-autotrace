@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../../lib/db";
+import { db } from "../../../../../lib/db";
 
 // PATCH - 고장코드 처리 완료
 export async function PATCH(

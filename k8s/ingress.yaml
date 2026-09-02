@@ -1,32 +1,36 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: todo-ingress
+  name: autotrace-ingress
+  namespace: autotrace
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+
 spec:
   ingressClassName: nginx
+
   rules:
-    - http:
+    - host: autotrace.local
+      http:
         paths:
-          - path: /api/command(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /api/command
+            pathType: Prefix
             backend:
               service:
                 name: command-service
                 port:
                   number: 3000
 
-          - path: /api/query(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /api/query
+            pathType: Prefix
             backend:
               service:
                 name: query-service
                 port:
-                  number: 3000
+                  number: 3001
 
-          - path: /(.*)
-            pathType: ImplementationSpecific
+          - path: /
+            pathType: Prefix
             backend:
               service:
                 name: frontend-service

@@ -1,14 +1,8 @@
 import { DtcEvent } from "@/types/dtc";
 
-const QUERY_API =
-  process.env.NEXT_PUBLIC_QUERY_API_URL || "http://localhost:3002";
-
-const COMMAND_API =
-  process.env.NEXT_PUBLIC_COMMAND_API_URL || "http://localhost:3001";
-
 // GET
 export async function getDtcEvents(): Promise<DtcEvent[]> {
-  const response = await fetch(`${QUERY_API}/api/dtc`);
+  const response = await fetch(`/api/query/dtc`);
 
   if (!response.ok) {
     throw new Error("DTC 조회 실패");
@@ -25,7 +19,7 @@ export async function createDtc(data: {
   description: string;
   severity: "LOW" | "MEDIUM" | "HIGH";
 }) {
-  const response = await fetch(`${COMMAND_API}/api/dtc`, {
+  const response = await fetch(`/api/command/dtc`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -51,7 +45,7 @@ export async function updateDtc(
     severity?: "LOW" | "MEDIUM" | "HIGH";
   },
 ) {
-  const response = await fetch(`${COMMAND_API}/api/dtc/${id}`, {
+  const response = await fetch(`/api/command/dtc/${id}`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -68,7 +62,7 @@ export async function updateDtc(
 
 // DELETE
 export async function deleteDtc(id: number) {
-  const response = await fetch(`${COMMAND_API}/api/dtc/${id}`, {
+  const response = await fetch(`/api/command/dtc/${id}`, {
     method: "DELETE",
   });
 

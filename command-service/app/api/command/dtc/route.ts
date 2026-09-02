@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../lib/db";
+import { db } from "../../../../lib/db";
 
 // POST - 고장코드 등록
 export async function POST(request: NextRequest) {
