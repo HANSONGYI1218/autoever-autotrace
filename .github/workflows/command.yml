@@ -24,7 +24,7 @@ jobs:
       - name: Build and Push Command
         uses: docker/build-push-action@v7
         with:
-          context: ./command
-          file: ./command/Dockerfile
+          context: ./command-service
+          file: ./command-service/Dockerfile
           push: true
           tags: hansongyi/autotrace-command:latest

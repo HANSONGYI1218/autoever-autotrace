@@ -24,7 +24,7 @@ jobs:
       - name: Build and Push Query
         uses: docker/build-push-action@v7
         with:
-          context: ./query
-          file: ./query/Dockerfile
+          context: ./query-service
+          file: ./query-service/Dockerfile
           push: true
           tags: hansongyi/autotrace-query:latest
