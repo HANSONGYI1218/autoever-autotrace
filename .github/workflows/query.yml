@@ -27,4 +27,4 @@ jobs:
           context: ./query
           file: ./query/Dockerfile
           push: true
-          tags: hansongyi1218/autotrace-query:latest
+          tags: hansongyi/autotrace-query:latest

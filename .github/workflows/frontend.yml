@@ -27,4 +27,4 @@ jobs:
           context: ./frontend
           file: ./frontend/Dockerfile
           push: true
-          tags: hansongyi1218/autotrace-frontend:latest
+          tags: hansongyi/autotrace-frontend:latest
