@@ -39,7 +39,7 @@ export default function DtcList() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>차량 고장코드 이력 리스트</CardTitle>
+        <CardTitle>차량 고장코드 이력</CardTitle>
       </CardHeader>
 
       <CardContent>
