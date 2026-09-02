@@ -1,4 +1,3 @@
-```dockerfile
 # =========================
 # 1. Dependencies
 # =========================
@@ -6,11 +5,12 @@ FROM node:22-alpine AS deps
 
 WORKDIR /app
 
-# pnpm 활성화
-RUN corepack enable
+# pnpm 10.32.1 설치
+RUN npm install -g pnpm@10.32.1
 
 COPY package.json pnpm-lock.yaml ./
 
+RUN pnpm --version
 RUN pnpm install --frozen-lockfile
 
 
@@ -21,14 +21,15 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# pnpm 활성화
-RUN corepack enable
+# pnpm 10.32.1 설치
+RUN npm install -g pnpm@10.32.1
 
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-ENV NEXT_TELEMETRY_DISABLED=1
+ENV NODE_ENV=production
 
+RUN pnpm --version
 RUN pnpm run build
 
 
@@ -40,13 +41,9 @@ FROM node:22-alpine AS runner
 WORKDIR /app
 
 ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
 
-COPY --from=builder /app/public ./public
-COPY --from=builder /app/.next/standalone ./
-COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/dist ./dist
 
-EXPOSE 3000
+EXPOSE 3001
 
-CMD ["node", "server.js"]
-```
+CMD ["node", "dist/main.js"]

@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - "command/**"
+      - "command-service/**"
 
 jobs:
   docker:
