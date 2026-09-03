@@ -1,4 +1,4 @@
-FROM node:22-alpine AS deps
+FROM node:22-alpine AS runner
 
 WORKDIR /app
 
@@ -34,6 +34,9 @@ ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
+
+# 문제 확인용: node_modules 전체 복사
+COPY --from=builder /app/node_modules ./node_modules
 
 EXPOSE 3000
 
