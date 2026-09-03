@@ -15,6 +15,7 @@
     "react-dom": "19.2.8"
   },
   "devDependencies": {
+    "@swc/helpers": "^0.5.23",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
