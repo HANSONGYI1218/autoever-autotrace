@@ -39,6 +39,9 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0
     devDependencies:
+      '@swc/helpers':
+        specifier: ^0.5.23
+        version: 0.5.23
       '@tailwindcss/postcss':
         specifier: ^4
         version: 4.3.3
