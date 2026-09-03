@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
 
     if (!vehicleId || !vehicleModel || !dtcCode || !description || !severity) {
       return NextResponse.json(
-        { message: "필수 값이 없습니다." },
+        { message: "필수 값이 없습니다.." },
         { status: 400 },
       );
     }

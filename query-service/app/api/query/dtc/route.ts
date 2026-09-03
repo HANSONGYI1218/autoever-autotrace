@@ -15,7 +15,7 @@ export async function GET() {
     console.error(error);
 
     return NextResponse.json(
-      { message: "고장 코드 조회에 실패했습니다." },
+      { message: "고장 코드 조회에 실패했습니다.." },
       { status: 500 },
     );
   }

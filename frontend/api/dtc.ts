@@ -67,7 +67,7 @@ export async function deleteDtc(id: number) {
   });
 
   if (!response.ok) {
-    throw new Error("DTC 삭제 실패");
+    throw new Error("DTC 삭제 실패!");
   }
 
   return response.json();
