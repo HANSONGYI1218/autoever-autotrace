@@ -26,5 +26,6 @@ jobs:
         with:
           context: ./query-service
           file: ./query-service/Dockerfile
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: hansongyi/autotrace-query:latest

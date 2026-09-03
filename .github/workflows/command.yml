@@ -26,5 +26,6 @@ jobs:
         with:
           context: ./command-service
           file: ./command-service/Dockerfile
+          platforms: linux/amd64,linux/arm64
           push: true
           tags: hansongyi/autotrace-command:latest
