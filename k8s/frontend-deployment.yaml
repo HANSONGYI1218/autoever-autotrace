@@ -40,14 +40,14 @@ spec:
 
           readinessProbe:
             httpGet:
-              path: /api/query/dtc
+              path: /api/health
               port: 3000
             initialDelaySeconds: 10
             periodSeconds: 10
 
           livenessProbe:
             httpGet:
-              path: /api/query/dtc
+              path: /api/health
               port: 3000
             initialDelaySeconds: 30
             periodSeconds: 20
