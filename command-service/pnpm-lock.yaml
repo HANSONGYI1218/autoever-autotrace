@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@swc/helpers':
+        specifier: ^0.5.23
+        version: 0.5.23
       mysql2:
         specifier: ^3.23.4
         version: 3.24.2(@types/node@20.19.43)
@@ -21,9 +24,6 @@ importers:
         specifier: 19.2.8
         version: 19.2.8(react@19.2.8)
     devDependencies:
-      '@swc/helpers':
-        specifier: ^0.5.23
-        version: 0.5.23
       '@types/node':
         specifier: ^20
         version: 20.19.43
