@@ -25,7 +25,7 @@ spec:
 
           env:
             - name: MARIADB_HOST
-              value: "mariadb"
+              value: "mariadb-service"
 
             - name: MARIADB_PORT
               value: "3306"
