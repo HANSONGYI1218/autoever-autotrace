@@ -1,0 +1,74 @@
+// use prisma-next
+
+model Vehicle {
+  id           ObjectId @id @map("_id")
+  vehicleNo    String
+  model        String?
+  manufacturer String?
+  year         Int?
+  status       String?
+
+  createdAt    DateTime
+  updatedAt    DateTime
+
+  @@map("vehicles")
+}
+
+model Driver {
+  id         ObjectId @id @map("_id")
+  name       String
+  licenseNo  String?
+  phone      String?
+
+  createdAt  DateTime
+  updatedAt  DateTime
+
+  @@map("drivers")
+}
+
+model VehicleDriver {
+  id         ObjectId @id @map("_id")
+  vehicleId  String
+  driverId   String
+  assignedAt DateTime?
+  unassignedAt DateTime?
+
+  @@index([vehicleId])
+  @@index([driverId])
+  @@map("vehicleDrivers")
+}
+
+model DrivingRecord {
+  id         ObjectId @id @map("_id")
+  vehicleId  String
+  driverId   String?
+
+  startedAt  DateTime
+  endedAt    DateTime?
+
+  distance   Float?
+  duration   Int?
+
+  @@index([vehicleId])
+  @@index([driverId])
+  @@index([startedAt])
+  @@map("drivingRecords")
+}
+
+model AnomalyEvent {
+  id              ObjectId @id @map("_id")
+  vehicleId       String
+  drivingRecordId String?
+
+  type            String
+  severity        String
+  occurredAt      DateTime
+
+  value           Float?
+  description     String?
+
+  @@index([vehicleId])
+  @@index([drivingRecordId])
+  @@index([occurredAt])
+  @@map("anomalyEvents")
+}

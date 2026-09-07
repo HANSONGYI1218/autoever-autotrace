@@ -1,15 +1,22 @@
 {
   "name": "command",
+  "type": "module",
   "version": "0.0.1",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "postinstall": "prisma skills sync || exit 0",
+    "contract:emit": "prisma contract emit"
   },
   "dependencies": {
+    "@prisma/adapter-mariadb": "^7.10.0",
+    "@prisma/client": "^7.10.0",
     "@swc/helpers": "0.4.12",
+    "dotenv": "^17.4.2",
+    "mariadb": "^3.5.4",
     "mysql2": "^3.23.4",
     "next": "16.3.1",
     "react": "19.2.8",
@@ -21,6 +28,8 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.1",
+    "prisma": "7.10.0",
+    "tsx": "^4.23.13",
     "typescript": "^5"
   }
 }

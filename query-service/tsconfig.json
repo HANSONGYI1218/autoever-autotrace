@@ -7,7 +7,7 @@
     "strict": false,
     "noEmit": true,
     "incremental": true,
-    "module": "esnext",
+    "module": "preserve",
     "esModuleInterop": true,
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
@@ -17,6 +17,9 @@
       {
         "name": "next"
       }
+    ],
+    "types": [
+      "node"
     ]
   },
   "include": [
