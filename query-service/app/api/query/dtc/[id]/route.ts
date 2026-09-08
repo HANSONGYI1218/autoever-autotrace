@@ -1,6 +1,5 @@
-import { ObjectId } from "mongodb";
 import { NextResponse } from "next/server";
-import { db } from "../../../../../lib/db";
+import { db } from "../../../../../src/prisma/db";
 
 export async function GET(
   request: Request,
@@ -9,23 +8,25 @@ export async function GET(
   try {
     const { id } = await params;
 
-    const dtc = await db.collection("dtc_events").findOne({
-      _id: new ObjectId(id),
+    const driver = await db.driver.findUnique({
+      where: {
+        id,
+      },
     });
 
-    if (!dtc) {
+    if (!driver) {
       return NextResponse.json(
-        { message: "DTC를 찾을 수 없습니다." },
+        { message: "드라이버를 찾을 수 없습니다." },
         { status: 404 },
       );
     }
 
-    return NextResponse.json(dtc);
+    return NextResponse.json(driver);
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(
-      { message: "DTC 조회에 실패했습니다." },
+      { message: "드라이버 조회에 실패했습니다." },
       { status: 500 },
     );
   }

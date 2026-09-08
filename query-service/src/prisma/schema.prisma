@@ -1,13 +1,19 @@
-// use prisma-next
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
 
 model Vehicle {
-  id           ObjectId @id @map("_id")
+  id           String   @id @default(auto()) @map("_id") @db.ObjectId
   vehicleNo    String
   model        String?
   manufacturer String?
   year         Int?
   status       String?
-
   createdAt    DateTime
   updatedAt    DateTime
 
@@ -15,22 +21,21 @@ model Vehicle {
 }
 
 model Driver {
-  id         ObjectId @id @map("_id")
-  name       String
-  licenseNo  String?
-  phone      String?
-
-  createdAt  DateTime
-  updatedAt  DateTime
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  licenseNo String?
+  phone     String?
+  createdAt DateTime
+  updatedAt DateTime
 
   @@map("drivers")
 }
 
 model VehicleDriver {
-  id         ObjectId @id @map("_id")
-  vehicleId  String
-  driverId   String
-  assignedAt DateTime?
+  id           String    @id @default(auto()) @map("_id") @db.ObjectId
+  vehicleId    String
+  driverId     String
+  assignedAt   DateTime?
   unassignedAt DateTime?
 
   @@index([vehicleId])
@@ -39,15 +44,13 @@ model VehicleDriver {
 }
 
 model DrivingRecord {
-  id         ObjectId @id @map("_id")
-  vehicleId  String
-  driverId   String?
-
-  startedAt  DateTime
-  endedAt    DateTime?
-
-  distance   Float?
-  duration   Int?
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  vehicleId String
+  driverId  String?
+  startedAt DateTime
+  endedAt   DateTime?
+  distance  Float?
+  duration  Int?
 
   @@index([vehicleId])
   @@index([driverId])
@@ -56,14 +59,12 @@ model DrivingRecord {
 }
 
 model AnomalyEvent {
-  id              ObjectId @id @map("_id")
+  id              String    @id @default(auto()) @map("_id") @db.ObjectId
   vehicleId       String
   drivingRecordId String?
-
   type            String
   severity        String
   occurredAt      DateTime
-
   value           Float?
   description     String?
 

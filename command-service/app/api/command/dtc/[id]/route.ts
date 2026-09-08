@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "../../../../../src/prisma/db";
 
-// PATCH - 고장코드 처리 완료
+// PATCH - 특정 사용자 정보 변경
 export async function PATCH(
   request: NextRequest,
   context: {
@@ -11,21 +11,31 @@ export async function PATCH(
   try {
     const { id } = await context.params;
 
-    const result = await db.$executeRaw`
-        UPDATE dtc_events
-        SET status = 'RESOLVED'
-        WHERE id = ${id}
-        `;
+    const body = await request.json();
+
+    const { name, licenseNo, phone } = body;
+
+    const result = await db.driver.update({
+      where: {
+        id,
+      },
+      data: {
+        ...(name !== undefined && { name }),
+        ...(licenseNo !== undefined && { licenseNo }),
+        ...(phone !== undefined && { phone }),
+        updatedAt: new Date(),
+      },
+    });
 
     return NextResponse.json({
-      message: "고장코드가 처리 완료되었습니다.",
+      message: "사용자 정보 변경에 성공했습니다.",
       result,
     });
   } catch (error) {
     console.error(error);
 
     return NextResponse.json(
-      { message: "고장코드 처리에 실패했습니다." },
+      { message: "사용자 정보 변경에 실패했습니다." },
       { status: 500 },
     );
   }

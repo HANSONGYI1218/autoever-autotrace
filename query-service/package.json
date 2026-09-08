@@ -3,6 +3,9 @@
   "type": "module",
   "version": "0.0.1",
   "private": true,
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -12,7 +15,7 @@
     "contract:emit": "prisma contract emit"
   },
   "dependencies": {
-    "@prisma/orm-mongo": "8.0.0-rc.8",
+    "@prisma/client": "6.19.0",
     "@swc/helpers": "0.5.23",
     "dotenv": "^17.4.2",
     "mongodb": "^6",
@@ -22,13 +25,12 @@
     "tsx": "^4.23.13"
   },
   "devDependencies": {
-    "@prisma/cli-engine": "0.2.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.1",
-    "prisma": "8.0.0-rc.10",
+    "prisma": "6.19.0",
     "typescript": "^5"
   }
 }

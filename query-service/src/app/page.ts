@@ -1,11 +1,11 @@
 import { db } from "../prisma/db";
 
 async function main() {
-  await db.connect();
+  await db.$connect();
 
   console.log("MongoDB 연결 성공");
 
-  await db.close();
+  await db.$disconnect();
 }
 
 main().catch((error) => {
