@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../../../lib/db";
+import { db } from "../../../../../src/prisma/db";
 
 // PATCH - 고장코드 처리 완료
 export async function PATCH(
@@ -11,14 +11,11 @@ export async function PATCH(
   try {
     const { id } = await context.params;
 
-    const [result] = await db.execute(
-      `
-      UPDATE dtc_events
-      SET status = 'RESOLVED'
-      WHERE id = ?
-      `,
-      [id],
-    );
+    const result = await db.$executeRaw`
+        UPDATE dtc_events
+        SET status = 'RESOLVED'
+        WHERE id = ${id}
+        `;
 
     return NextResponse.json({
       message: "고장코드가 처리 완료되었습니다.",

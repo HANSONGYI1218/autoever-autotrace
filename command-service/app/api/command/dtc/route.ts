@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "../../../../lib/db";
+import { db } from "../../../../src/prisma/db";
 
 // POST - 고장코드 등록
 export async function POST(request: NextRequest) {
@@ -15,8 +15,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const [result] = await db.execute(
-      `
+    const result = await db.$executeRaw`
       INSERT INTO dtc_events
       (
         vehicle_id,
@@ -27,10 +26,16 @@ export async function POST(request: NextRequest) {
         status,
         occurred_at
       )
-      VALUES (?, ?, ?, ?, ?, 'ACTIVE', NOW())
-      `,
-      [vehicleId, vehicleModel, dtcCode, description, severity],
-    );
+      VALUES (
+        ${vehicleId},
+        ${vehicleModel},
+        ${dtcCode},
+        ${description},
+        ${severity},
+        'ACTIVE',
+        NOW()
+      )
+    `;
 
     return NextResponse.json(
       {
