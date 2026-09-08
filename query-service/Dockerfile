@@ -28,6 +28,9 @@ COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN pnpm --version
+
+RUN pnpm prisma generate
+
 RUN pnpm run build
 
 
