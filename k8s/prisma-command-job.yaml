@@ -1,0 +1,29 @@
+apiVersion: batch/v1
+kind: Job
+
+metadata:
+  name: prisma-command-db-push
+  namespace: autotrace
+
+spec:
+  backoffLimit: 3
+
+  template:
+    spec:
+      restartPolicy: Never
+
+      containers:
+        - name: prisma-command-db-push
+          image: IMAGE_PLACEHOLDER
+
+          command:
+            - pnpm
+            - prisma
+            - db
+            - push
+            - --schema
+            - src/prisma/schema.prisma
+
+          env:
+            - name: DATABASE_URL
+              value: "mysql://root:1234@mariadb-service:3306/autotrace"

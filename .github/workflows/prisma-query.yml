@@ -1,0 +1,60 @@
+name: Build Prisma Query
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "query-service/src/prisma/schema.prisma"
+
+jobs:
+  prisma-query:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.32.1
+
+      - name: Install dependencies
+        working-directory: query-service
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma Client
+        working-directory: query-service
+        run: pnpm prisma generate
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Setup kubeconfigㅊ
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > ~/.kube/config
+
+      - name: Prisma DB Push
+        run: |
+          kubectl delete job prisma-query-db-push \
+            -n autotrace \
+            --ignore-not-found
+
+          sed "s|IMAGE_PLACEHOLDER|hansongyi/autotrace-query:${GITHUB_SHA}|g" \
+            k8s/prisma-query-job.yaml \
+            | kubectl apply -f -
+
+      - name: Wait for Prisma DB Push
+        run: |
+          kubectl wait \
+            --for=condition=complete \
+            --timeout=300s \
+            job/prisma-query-db-push \
+            -n autotrace

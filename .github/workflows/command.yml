@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "command-service/**"
+      - "!command-service/src/prisma/schema.prisma"
   workflow_dispatch:
 jobs:
   docker:
@@ -34,4 +35,6 @@ jobs:
           file: ./command-service/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: hansongyi/autotrace-command:latest
+          tags: |
+            hansongyi/autotrace-command:latest
+            hansongyi/autotrace-command:${{ github.sha }}
