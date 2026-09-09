@@ -18,7 +18,7 @@ RUN pnpm install --frozen-lockfile
 COPY src/prisma ./src/prisma
 
 # Prisma Client 생성
-RUN pnpm prisma generate
+RUN pnpm prisma generate --schema src/prisma/schema.prisma
 
 # 기본 실행 명령
 CMD ["pnpm", "prisma", "db", "push", "--schema", "src/prisma/schema.prisma"]
