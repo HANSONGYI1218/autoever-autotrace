@@ -23,12 +23,12 @@ jobs:
         run: |
           docker build \
             -f command-service/prisma.Dockerfile \
-            -t hansongyi/autotrace-command:latest \
+            -t hansongyi/autotrace-prisma-command:latest \
             command-service
 
       - name: Push Prisma Command Image
         run: |
-          docker push hansongyi/autotrace-command:latest
+          docker push hansongyi/autotrace-prisma-command:latest
 
       - name: Setup kubectl
         uses: azure/setup-kubectl@v4
@@ -39,7 +39,7 @@ jobs:
             -n autotrace \
             --ignore-not-found
 
-          sed "s|IMAGE_PLACEHOLDER|hansongyi/autotrace-command:latest|g" \
+          sed "s|IMAGE_PLACEHOLDER|hansongyi/autotrace-prisma-command:latest|g" \
             k8s/prisma-command-job.yaml \
             | kubectl apply -f -
 

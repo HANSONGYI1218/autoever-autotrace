@@ -10,7 +10,6 @@ RUN npm install -g pnpm@10.32.1
 
 COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm --version
 RUN pnpm install --frozen-lockfile
 
 
@@ -29,7 +28,6 @@ COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED=1
 
-RUN pnpm --version
 RUN pnpm run build
 
 
@@ -42,6 +40,8 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
 
 # Next.js standalone
 COPY --from=builder /app/.next/standalone ./

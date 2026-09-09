@@ -19,22 +19,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Docker Login
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
       - name: Build Prisma Query Image
         run: |
           docker build \
             -f query-service/prisma.Dockerfile \
-            -t hansongyi/autotrace-query:latest \
+            -t hansongyi/autotrace-prisma-query:latest \
             query-service
 
       - name: Push Prisma Query Image
         run: |
-          docker push hansongyi/autotrace-query:latest
+          docker push hansongyi/autotrace-prisma-query:latest
 
       - name: Setup kubectl
         uses: azure/setup-kubectl@v4
@@ -45,7 +39,7 @@ jobs:
             -n autotrace \
             --ignore-not-found
 
-          sed "s|IMAGE_PLACEHOLDER|hansongyi/autotrace-query:latest|g" \
+          sed "s|IMAGE_PLACEHOLDER|hansongyi/autotrace-prisma-query:latest|g" \
             k8s/prisma-query-job.yaml \
             | kubectl apply -f -
 
