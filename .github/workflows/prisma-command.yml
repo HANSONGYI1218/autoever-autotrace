@@ -6,6 +6,9 @@ on:
       - main
     paths:
       - "command-service/src/prisma/schema.prisma"
+      - "command-service/Dockerfile.prisma"
+      - "command-service/package.json"
+      - "command-service/pnpm-lock.yaml"
   workflow_dispatch:
 
 jobs:
@@ -15,6 +18,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Build Prisma Command Image
+        run: |
+          docker build \
+            -f command-service/Dockerfile.prisma \
+            -t hansongyi/autotrace-command:latest \
+            command-service
+
+      - name: Push Prisma Command Image
+        run: |
+          docker push hansongyi/autotrace-command:latest
 
       - name: Setup kubectl
         uses: azure/setup-kubectl@v4

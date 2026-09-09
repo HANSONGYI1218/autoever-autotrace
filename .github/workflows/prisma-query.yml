@@ -6,6 +6,10 @@ on:
       - main
     paths:
       - "query-service/src/prisma/schema.prisma"
+      - "query-service/prisma.Dockerfile"
+      - "query-service/package.json"
+      - "query-service/pnpm-lock.yaml"
+  workflow_dispatch:
 
 jobs:
   prisma-query:
