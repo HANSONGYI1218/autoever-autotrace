@@ -36,4 +36,6 @@ jobs:
           file: ./query-service/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: hansongyi/autotrace-query:latest
+          tags: |
+            hansongyi/autotrace-query:latest
+            hansongyi/autotrace-query:${{ github.sha }}
