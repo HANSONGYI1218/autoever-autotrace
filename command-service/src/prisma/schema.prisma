@@ -9,72 +9,59 @@ datasource db {
   provider = "mysql"
 }
 
-enum VehicleStatus {
-  ACTIVE
-  INACTIVE
-  MAINTENANCE
-}
-
-enum EventSeverity {
-  LOW
-  MEDIUM
-  HIGH
-  CRITICAL
-}
-
 model Driver {
-  id        String   @id @db.VarChar(24)
-  name      String   @db.VarChar(191)
-  licenseNo String?  @unique @db.VarChar(191)
-  phone     String?  @db.VarChar(191)
-  createdAt DateTime @default(now()) @db.DateTime(3)
-  updatedAt DateTime @default(now()) @db.DateTime(3)
+  id              String   @id @db.VarChar(24)
+  name            String   @db.VarChar(191)
+  licenseNo       String?  @unique @db.VarChar(191)
+  phone           String?  @db.VarChar(191)
+  createdAt       DateTime @default(now()) @db.DateTime(3)
+  updatedAt       DateTime @default(now()) @db.DateTime(3)
 
-  drivingRecords DrivingRecord[]
-  vehicleDrivers VehicleDriver[]
+  drivingRecords  DrivingRecord[]
+  vehicleDrivers  VehicleDriver[]
 }
 
 model Vehicle {
-  id           String        @id @db.VarChar(24)
-  vehicleNo    String        @unique @db.VarChar(191)
-  manufacturer String?       @db.VarChar(191)
-  model        String?       @db.VarChar(191)
-  year         Int?
-  status       VehicleStatus?
+  id              String        @id @db.VarChar(24)
+  vehicleNo       String        @unique @db.VarChar(191)
+  manufacturer    String?       @db.VarChar(191)
+  model           String?       @db.VarChar(191)
+  year            Int?
+  status          String        @db.VarChar(191)
 
-  createdAt DateTime @default(now()) @db.DateTime(3)
-  updatedAt DateTime @default(now()) @db.DateTime(3)
+  createdAt       DateTime @default(now()) @db.DateTime(3)
+  updatedAt       DateTime @default(now()) @db.DateTime(3)
 
-  drivingRecords DrivingRecord[]
-  vehicleDrivers VehicleDriver[]
-  anomalyEvents  AnomalyEvent[]
+  drivingRecords  DrivingRecord[]
+  vehicleDrivers  VehicleDriver[]
+  anomalyEvents   AnomalyEvent[]
 }
 
 model DrivingRecord {
-  id        String   @id @db.VarChar(24)
-  vehicleId String   @db.VarChar(24)
-  driverId  String?  @db.VarChar(24)
+  id              String   @id @db.VarChar(24)
+  vehicleId       String   @db.VarChar(24)
+  driverId        String?  @db.VarChar(24)
 
-  startedAt DateTime  @db.DateTime(3)
-  endedAt   DateTime? @db.DateTime(3)
-  distance  Float?
-  duration  Int?
+  startedAt       DateTime  @db.DateTime(3)
+  endedAt         DateTime? @db.DateTime(3)
+  distance        Float?
+  duration        Int?  
 
-  vehicle Vehicle @relation(fields: [vehicleId], references: [id])
-  driver  Driver? @relation(fields: [driverId], references: [id])
+  vehicle         Vehicle @relation(fields: [vehicleId], references: [id])
+  driver          Driver? @relation(fields: [driverId], references: [id])
 
-  anomalyEvents AnomalyEvent[]
+  anomalyEvents   AnomalyEvent[]
 }
 
 model VehicleDriver {
-  id           String   @id @db.VarChar(24)
-  vehicleId    String   @db.VarChar(24)
-  driverId     String   @db.VarChar(24)
-  assignedAt   DateTime? @db.DateTime(3)
-  unassignedAt DateTime? @db.DateTime(3)
+  id              String   @id @db.VarChar(24)
+  vehicleId       String   @db.VarChar(24)
+  driverId        String   @db.VarChar(24)
+  assignedAt      DateTime? @db.DateTime(3)
+  unassignedAt    DateTime? @db.DateTime(3)
 
-  vehicle Vehicle @relation(fields: [vehicleId], references: [id])
-  driver  Driver  @relation(fields: [driverId], references: [id])
+  vehicle         Vehicle @relation(fields: [vehicleId], references: [id])
+  driver          Driver  @relation(fields: [driverId], references: [id])
 }
 
 model AnomalyEvent {
@@ -82,12 +69,12 @@ model AnomalyEvent {
   vehicleId       String         @db.VarChar(24)
   drivingRecordId String?        @db.VarChar(24)
 
-  type        String         @db.VarChar(191)
-  severity    EventSeverity  
-  occurredAt  DateTime       @db.DateTime(3)
-  description String?        @db.Text
-  value       Float?
+  type            String         @db.VarChar(191)
+  severity        String         @db.VarChar(191) 
+  occurredAt      DateTime       @db.DateTime(3)
+  description     String?        @db.Text
+  value           Float?
 
-  vehicle      Vehicle       @relation(fields: [vehicleId], references: [id])
-  drivingRecord DrivingRecord? @relation(fields: [drivingRecordId], references: [id])
+  vehicle         Vehicle       @relation(fields: [vehicleId], references: [id])
+  drivingRecord   DrivingRecord? @relation(fields: [drivingRecordId], references: [id])
 }
