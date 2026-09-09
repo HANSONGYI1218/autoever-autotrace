@@ -9,8 +9,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  prisma:
-    runs-on: ubuntu-latest
+  prisma-command:
+    runs-on: self-hosted
 
     steps:
       - name: Checkout
@@ -18,11 +18,6 @@ jobs:
 
       - name: Setup kubectl
         uses: azure/setup-kubectl@v4
-
-      - name: Setup kubeconfig
-        run: |
-          mkdir -p ~/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 --decode > ~/.kube/config
 
       - name: Prisma Command DB Push
         run: |
