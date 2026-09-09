@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - "command-service/src/prisma/schema.prisma"
-      - "command-service/Dockerfile.prisma"
+      - "command-service/prisma.Dockerfile"
       - "command-service/package.json"
       - "command-service/pnpm-lock.yaml"
   workflow_dispatch:
@@ -22,7 +22,7 @@ jobs:
       - name: Build Prisma Command Image
         run: |
           docker build \
-            -f command-service/Dockerfile.prisma \
+            -f command-service/prisma.Dockerfile \
             -t hansongyi/autotrace-command:latest \
             command-service
 

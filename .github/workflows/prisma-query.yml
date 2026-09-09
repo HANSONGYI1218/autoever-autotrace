@@ -19,6 +19,23 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Docker Login
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build Prisma Query Image
+        run: |
+          docker build \
+            -f query-service/prisma.Dockerfile \
+            -t hansongyi/autotrace-query:latest \
+            query-service
+
+      - name: Push Prisma Query Image
+        run: |
+          docker push hansongyi/autotrace-query:latest
+
       - name: Setup kubectl
         uses: azure/setup-kubectl@v4
 
