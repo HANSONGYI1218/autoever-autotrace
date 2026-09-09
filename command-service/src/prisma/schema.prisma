@@ -1,4 +1,4 @@
-// Prisma DB Push workflow test
+// Prisma DB Push workflow test 01
 
 generator client {
   provider = "prisma-client-js"
