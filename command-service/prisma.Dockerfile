@@ -14,6 +14,9 @@ COPY package.json pnpm-lock.yaml ./
 # 의존성 설치
 RUN pnpm install --frozen-lockfile
 
+# Prisma config 복사
+COPY prisma.config.ts ./
+
 # Prisma schema 복사
 COPY src/prisma ./src/prisma
 
