@@ -37,4 +37,3 @@ jobs:
           push: true
           tags: |
             hansongyi/autotrace-command:latest
-            hansongyi/autotrace-command:${{ github.sha }}

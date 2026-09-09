@@ -24,7 +24,7 @@ jobs:
             -n autotrace \
             --ignore-not-found
 
-          sed "s|IMAGE_PLACEHOLDER|hansongyi/autotrace-query:${GITHUB_SHA}|g" \
+          sed "s|IMAGE_PLACEHOLDER|hansongyi/autotrace-query:latest|g" \
             k8s/prisma-query-job.yaml \
             | kubectl apply -f -
 

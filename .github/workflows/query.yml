@@ -38,4 +38,3 @@ jobs:
           push: true
           tags: |
             hansongyi/autotrace-query:latest
-            hansongyi/autotrace-query:${{ github.sha }}
