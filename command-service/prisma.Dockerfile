@@ -20,6 +20,8 @@ COPY prisma.config.ts ./
 # Prisma schema 복사
 COPY src/prisma ./src/prisma
 
+ENV DATABASE_URL="mysql://root:1234@mariadb-service:3306/autotrace"
+
 # Prisma Client 생성
 RUN pnpm prisma generate --schema src/prisma/schema.prisma
 
