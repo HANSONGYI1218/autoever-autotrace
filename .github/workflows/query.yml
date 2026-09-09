@@ -7,6 +7,7 @@ on:
     paths:
       - "query-service/**"
       - "!query-service/src/prisma/schema.prisma"
+      - "!query-service/prisma.Dockerfile"
   workflow_dispatch:
 
 jobs:
